@@ -12,8 +12,7 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   fs0:    
   cd MpyTest  
   startup.nsh -a [ia32 | x64] -k
-  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. The MPTF will continue the execution of Test Suite|Test Suites if previous test is not finished
-
+  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. The MPTF   will continue the execution of Test Suite|Test Suites if previous test is not finished
   ```
 * Make the test case atomic 
   
@@ -27,7 +26,7 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   {"last": {"finished": "yes", "type": "suite", "name": "nt32_test_cases2", "timestamp": "2017_09_21__06_47_50"}}
   ```
  
-  * Sample 
+* Sample 
   
   A test case to reset the boot(MPTF:\MpyTest\Scripts\reset_test.py)
   ```  
