@@ -48,17 +48,25 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   
   Add the test case to the test suite `nt32_reset_cases` defined in `Test_Suite.json` under the `Config` folder. And run the test case 10 times:
   ```
-   {
+  {
     "test_suite": [
       { "name":"nt32_reset_cases",
-          "run_times":10,
-          "sequence":
-          [
-            {
-              "name":"m_helloworld.py",
-              "order": 1
-            }
-          ]
+        "run_times":10,
+        "sequence":[
+          {
+            "name":"m_helloworld.py",
+            "order": 1
+          }
+        ]
+      },
+      { "name":"nt32_test_cases",
+        "run_times":5,
+        "sequence":[
+          {
+            "name":"nt32_helloworld.py",
+            "order": 1
+          }
+        ]
       }
     ]
   }
