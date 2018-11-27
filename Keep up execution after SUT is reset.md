@@ -12,8 +12,7 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   fs0:    
   cd MpyTest  
   startup.nsh -a [ia32 | x64] -k
-  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. 
-  The MPTF will continue the execution of Test Suite|Test Suites if previous test is not finished
+  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. The MPTF will continue the execution of Test Suite|Test Suites if previous test is not finished
   ```
 * Make the test case atomic 
   
@@ -33,14 +32,14 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   ```  
   import mptf
   
-    def run(log_path):
-      obj = mptf.mptf(log_path)
-      obj.Input('cls' + mptf.ENTER)
-      obj.Input('echo hello world' + mptf.ENTER)
-      if obj.Verify('hello world', None):
-          obj.Pass('Print Hello World PASS',True)
-      else:
-          obj.Fail('Print Hello World FAIL',True)
-      obj.Close()
-      obj.Input('reset' + mptf.Enter) 
+  def run(log_path):
+    obj = mptf.mptf(log_path)
+    obj.Input('cls' + mptf.ENTER)
+    obj.Input('echo will reset the boot' + mptf.ENTER)
+    if obj.Verify('reset the boot', None):
+      obj.Pass('Print Ready to reset the boot PASS',True)
+    else:
+      obj.Fail('Print Ready to reset the boot FAIL',True)
+    obj.Close()
+    obj.Input('reset' + mptf.Enter) 
   ```
