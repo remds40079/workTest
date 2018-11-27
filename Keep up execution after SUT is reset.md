@@ -12,7 +12,8 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   fs0:    
   cd MpyTest  
   startup.nsh -a [ia32 | x64] -k
-  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. The MPTF   will continue the execution of Test Suite|Test Suites if previous test is not finished
+  # The -k is not required. You can just write something like 'startup.nsh -a [ia32 | x64] [-s suite_name | -ss suites_name]. 
+  The MPTF will continue the execution of Test Suite|Test Suites if previous test is not finished
   ```
 * Make the test case atomic 
   
@@ -23,14 +24,23 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   The Finish_status.json under `MpyTest\Config` folder is introduced to record the test execution status. The json file identifies the uniqueness of the test case with the three attributes (Name, Type, Timestamp) and determines whether it has finished executing with finished:[no|yes]. Here is one sample of the Finish_status.json.
 
   ```
-  {"last": {"finished": "yes", "type": "suite", "name": "nt32_test_cases2", "timestamp": "2017_09_21__06_47_50"}}
+   {"last": {"finished": "yes", "type": "suite", "name": "nt32_test_cases2", "timestamp": "2017_09_21__06_47_50"}}
   ```
  
 * Sample 
   
   A test case to reset the boot(MPTF:\MpyTest\Scripts\reset_test.py)
   ```  
-   obj = mptf.mptf(logpath)
-   obj.Close()
-   obj.Input('reset' + mptf.Enter) 
+  import mptf
+  
+    def run(log_path):
+      obj = mptf.mptf(log_path)
+      obj.Input('cls' + mptf.ENTER)
+      obj.Input('echo hello world' + mptf.ENTER)
+      if obj.Verify('hello world', None):
+          obj.Pass('Print Hello World PASS',True)
+      else:
+          obj.Fail('Print Hello World FAIL',True)
+      obj.Close()
+      obj.Input('reset' + mptf.Enter) 
   ```
