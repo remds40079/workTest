@@ -23,15 +23,15 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   
   The Finish_status.json under `MpyTest\Config` folder is introduced to record the test execution status. The json file identifies the uniqueness of the test case with the three attributes (Name, Type, Timestamp) and determines whether it has finished executing with finished:[no|yes]. Here is one sample of the Finish_status.json.
 
-```
+  ```
   {"last": {"finished": "yes", "type": "suite", "name": "nt32_test_cases2", "timestamp": "2017_09_21__06_47_50"}}
-```
+  ```
  
   * Sample 
   
   A test case to reset the boot(MPTF:\MpyTest\Scripts\reset_test.py)
-```  
+  ```  
    obj = mptf.mptf(logpath)
    obj.Close()
    obj.Input('reset' + mptf.Enter) 
-```
+  ```
