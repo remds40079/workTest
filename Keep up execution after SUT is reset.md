@@ -27,8 +27,10 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
   ```
  
 * Sample 
-  
-  A test case `m_helloworld` under the `Scripts` folder to reset platform:
+
+  Let's have a look about how to enable this feature in details.  
+
+  The test case `m_helloworld` under the `Scripts` folder will reset platform.
   ```  
   import mptf
   
@@ -41,16 +43,13 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
     obj.Close()
     obj.Input('reset' + mptf.Enter) 
   ```
-  * Run the test Case `m_helloworld.py`:
-  ```
-    startup.nsh -a ia32 -c m_helloworld
-  ```
-  
-  Add the test case to the test suite `nt32_reset_cases` defined in `Test_Suite.json` under the `Config` folder. And run the test case 10 times:
+  When the platform needs to be reset, invoke `obj.Close()` before any further reset operation. When the platform is reset, other Test Case will be launched according to Test_Suites.json and Test_Suite.json. 
+
+  Add the test case to the test suite `minnowmax_reset_cases` defined in `Test_Suite.json` under the `Config` folder. Run the test case 10 times:
   ```
   {
     "test_suite": [
-      { "name":"nt32_reset_cases",
+      { "name":"minnowmax_reset_cases",
         "run_times":10,
         "sequence":[
           {
@@ -58,44 +57,14 @@ The SUT will be reset frequently in firmware related test. The MPTF Test Suites/
             "order": 1
           }
         ]
-      },
-      { "name":"nt32_test_cases",
-        "run_times":5,
-        "sequence":[
-          {
-            "name":"nt32_helloworld.py",
-            "order": 1
-          }
-        ]
       }
     ]
   }
   ```
-  * Run the test suite `nt32_reset_cases`:
+
+  Launch the test suites `minnowmax_reset_cases` by statement below:
+
   ```
-    startup.nsh -a ia32 -s nt32_reset_cases
+    startup.nsh -a x64 -s minnowmax_reset_cases
   ```
-  Add the test suite and `nt32_test_cases` to the test suites `nt32_reset_suites` defined in `Test_Suites.json` under `Config` folder: 
-  ```
-  {
-    "test_suites": [
-      {
-        "name": "nt32_reset_suites",
-        "test_suite": [
-          {
-            "name": "nt32_reset_cases",
-            "order": 1
-          },
-          {
-            "name": "nt32_test_cases",
-            "order": 2
-          }
-        ]
-      }
-    ]
-  }
-  ```
-  * Run the group of test suites `nt32_reset_suites`:
-  ```
-    startup.nsh -a ia32 -ss nt32_reset_suites
-  ```
+  Note, remember to modify system level startup.nsh as described above. 
